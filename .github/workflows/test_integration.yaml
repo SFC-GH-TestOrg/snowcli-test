@@ -19,4 +19,4 @@ jobs:
       - name: Run tests
         env:
           TEST_SECRET: ${{ secrets.TEST_SECRET }}
-        run: if [[ -z $TTT ]]; then exit 1; else echo "OK"; fi
+        run: if [[ -z $TEST_SECRET ]]; then exit 1; else echo "OK"; fi
