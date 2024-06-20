@@ -8,6 +8,7 @@ on:
 jobs:
   ok-to-test:
     runs-on: ubuntu-latest
+    environment: ok-to-test
     permissions:
       pull-requests: write
     # Only run for PRs, not issue comments
