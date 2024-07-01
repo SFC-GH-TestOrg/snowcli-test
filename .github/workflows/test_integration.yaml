@@ -45,7 +45,7 @@ jobs:
           TEST_SECRET: ${{ secrets.TEST_SECRET }}
         run: if [[ -z $TEST_SECRET ]]; then exit 1; else echo "OK"; fi
       # Update check run called "integration-fork"
-      - uses: actions/github-script@v6
+      - uses: actions/github-script@v7
         id: update-check-run
         if: ${{ always() }}
         env:
