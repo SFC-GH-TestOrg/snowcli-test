@@ -1,4 +1,4 @@
 # snowcli-test
 
 Test
-pczajk was here
+pczajka was here
