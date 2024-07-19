@@ -1,0 +1,25 @@
+name: shared matrix
+on:
+  workflow_call:
+    # Map the workflow outputs to job outputs
+    outputs:
+      os:
+        value: ${{ jobs.define-matrix.outputs.os }}
+      python:
+        value: ${{ jobs.define-matrix.outputs.python }}
+
+jobs:
+  define-matrix:
+    runs-on: ubuntu-latest
+    outputs:
+      os:  ${{ steps.os.outputs.os }}
+      python:  ${{ steps.python.outputs.python }}
+    steps:
+      - name: Define OS versions
+        id: os
+        run: |
+          echo 'os=["ubuntu-latest"]' >> "$GITHUB_OUTPUT"
+      - name: Define python versions
+        id: python
+        run: |
+          echo 'python=["3.10"]' >> "$GITHUB_OUTPUT"

@@ -6,9 +6,18 @@ on:
     types: [ok-to-test-command]
 
 jobs:
+  define-matrix:
+    uses: ./.github/workflows/matrix.yaml
+
   # Branch-based pull request
   integration-trusted:
-    runs-on: ubuntu-latest
+    needs: define-matrix
+    strategy:
+      fail-fast: true
+      matrix:
+        os: ${{ fromJSON(needs.define-matrix.outputs.os) }}
+        python-version: ${{ fromJSON(needs.define-matrix.outputs.python) }}
+    runs-on: ${{ matrix.os }}
     if: github.event_name == 'pull_request' && github.event.pull_request.head.repo.full_name == github.repository
     steps:
 
@@ -23,7 +32,13 @@ jobs:
 
   # Repo owner has commented /ok-to-test on a (fork-based) pull request
   integration-fork:
-    runs-on: ubuntu-latest
+    needs: define-matrix
+    strategy:
+      fail-fast: true
+      matrix:
+        os: ${{ fromJSON(needs.define-matrix.outputs.os) }}
+        python-version: ${{ fromJSON(needs.define-matrix.outputs.python) }}
+    runs-on: ${{ matrix.os }}
     permissions:
       pull-requests: write
       checks: write
